@@ -157,7 +157,7 @@ Process {
             }
 
             # Export Task Sequence to a XML file
-            if ($TaskSequencePackage -ne $null) {
+            if ($null -ne $TaskSequencePackage) {
                 $TaskSequencePackage.Get()
                 Export-TaskSequence -TaskSequencePackage $TaskSequencePackage
             }
@@ -176,7 +176,7 @@ Process {
             }
 
             # Export Task Sequence to a XML file
-            if ($TaskSequencePackages -ne $null) {
+            if ($null -ne $TaskSequencePackages) {
                 # Determine count of Task Sequence Packages
                 $TaskSequencePackagesCount = ($TaskSequencePackages | Measure-Object).Count
 

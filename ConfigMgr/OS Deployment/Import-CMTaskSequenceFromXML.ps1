@@ -95,7 +95,7 @@ param(
 
     [parameter(Mandatory=$false, HelpMessage="Specify the Boot Image PackageID that will be associated with the imported Task Sequence.", ParameterSetName="SingleInstance")]
     [parameter(Mandatory=$false, ParameterSetName="Recursive")]
-    [ValidateNotNullOrEmpty()]
+    # [ValidateNotNullOrEmpty()]
     [string]$BootImageID = $null,
 
     [parameter(Mandatory=$false, HelpMessage="Show a progressbar displaying the current operation.", ParameterSetName="Recursive")]
@@ -121,10 +121,10 @@ Begin {
     }
 
     # Validate BootImageID
-    if ($BootImageID -ne $null) {
+    if ($null -ne $BootImageID) {
         try {
             $BootImage = Get-WmiObject -Namespace "root\SMS\site_$($SiteCode)" -Class SMS_BootImagePackage -ComputerName $SiteServer -Filter "PackageID like '$($BootImageID)'" -ErrorAction Stop
-            if ($BootImage -ne $null) {
+            if ($null -ne $BootImageID) {
                 $BootImageID = $BootImage.PackageID
             }
             else {
@@ -151,7 +151,7 @@ Process {
         Process {
             # Validate Task Sequence Name is unique
             $TaskSequenceValidate = Get-WmiObject -Namespace "root\SMS\site_$($SiteCode)" -Class SMS_TaskSequencePackage -ComputerName $SiteServer -Filter "Name like '$($TaskSequenceName)'"
-            if ($TaskSequenceValidate -eq $null) {
+            if ($null -ne $TaskSequenceValidate) {
                 # Convert XML Document to SMS_TaskSequencePackage WMI object
                 try {
                     Write-Verbose -Message "Attempting to convert XML Document for '$($TaskSequenceName)' to Task Sequence Package WMI object"
