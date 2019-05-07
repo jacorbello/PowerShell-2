@@ -232,7 +232,7 @@ Process {
             }
 
             # Import Task Sequences from XML files
-            if ($XMLFiles -ne $null) {
+            if ($Null -ne $XMLFiles) {
                 # Determine count of XML files
                 $XMLFilesCount = ($XMLFiles | Measure-Object).Count
 
